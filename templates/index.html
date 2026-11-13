@@ -1,0 +1,194 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fitness Pro</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="background-circle circle1"></div>
+    <div class="background-circle circle2"></div>
+
+    <header>
+        <div class="logo">💪 FITNESS PRO</div>
+        <div class="tagline">YOUR PERSONAL FITNESS ASSISTANT</div>
+    </header>
+
+    <main>
+
+        <section class="welcome">
+            <p>WELCOME TO YOUR FITNESS JOURNEY</p>
+            <h1>Build a <span>Healthier You.</span></h1>
+            <p>Calculate your BMI, understand your body and track your daily calorie goals.</p>
+        </section>
+
+        <div class="dashboard">
+
+            <section class="form-card">
+
+                <h2>👤 Your Details</h2>
+                <p class="small-text">Enter your information below</p>
+
+                <form method="POST">
+
+                    <label>Your Name</label>
+                    <input type="text" name="name"
+                           placeholder="Enter your name" required>
+
+                    <div class="two-columns">
+
+                        <div>
+                            <label>Age</label>
+                            <input type="number" name="age"
+                                   min="1" max="120"
+                                   placeholder="Age" required>
+                        </div>
+
+                        <div>
+                            <label>Gender</label>
+                            <select name="gender" required>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="two-columns">
+
+                        <div>
+                            <label>Weight (kg)</label>
+                            <input type="number" name="weight"
+                                   step="any" min="0.1"
+                                   placeholder="65" required>
+                        </div>
+
+                        <div>
+                            <label>Height (metres)</label>
+                            <input type="number" name="height"
+                                   step="any" min="0.1"
+                                   placeholder="1.70" required>
+                        </div>
+
+                    </div>
+
+                    <label>Activity Level</label>
+
+                    <select name="activity" required>
+                        <option value="1">Sedentary</option>
+                        <option value="2">Light Exercise</option>
+                        <option value="3">Moderate Exercise</option>
+                        <option value="4">Heavy Exercise</option>
+                    </select>
+
+                    <button type="submit">
+                        Calculate My Fitness →
+                    </button>
+
+                </form>
+
+            </section>
+
+
+            <section class="result-card">
+
+                <h2>📊 Your Fitness Dashboard</h2>
+
+                {% if result %}
+
+                <div class="greeting">
+                    Hello, {{ result.name }}! 👋
+                    <p>Here are your fitness results.</p>
+                </div>
+
+                <div class="bmi-box">
+
+                    <p>YOUR BODY MASS INDEX</p>
+
+                    <h1 class="counter"
+                        data-value="{{ result.bmi }}">0</h1>
+
+                    <span class="category">
+                        {{ result.category }}
+                    </span>
+
+                    <div class="progress">
+                        <div class="progress-fill"
+                             id="bmiProgress"></div>
+                    </div>
+
+                </div>
+
+                <h3>🔥 Daily Calorie Information</h3>
+
+                <div class="calorie-grid">
+
+                    <div class="stat-box">
+                        <span>⚡</span>
+                        <p>BMR</p>
+                        <h2 class="counter"
+                            data-value="{{ result.bmr }}">0</h2>
+                        <small>kcal/day</small>
+                    </div>
+
+                    <div class="stat-box">
+                        <span>🎯</span>
+                        <p>Maintenance</p>
+                        <h2 class="counter"
+                            data-value="{{ result.maintenance }}">0</h2>
+                        <small>kcal/day</small>
+                    </div>
+
+                    <div class="stat-box">
+                        <span>📈</span>
+                        <p>Weight Gain</p>
+                        <h2 class="counter"
+                            data-value="{{ result.weight_gain }}">0</h2>
+                        <small>kcal/day</small>
+                    </div>
+
+                    <div class="stat-box">
+                        <span>📉</span>
+                        <p>Weight Loss</p>
+                        <h2 class="counter"
+                            data-value="{{ result.weight_loss }}">0</h2>
+                        <small>kcal/day</small>
+                    </div>
+
+                </div>
+
+                <p class="message">
+                    💚 Stay Healthy! Stay Fit!
+                </p>
+
+                {% else %}
+
+                <div class="empty-state">
+                    <div>🏃</div>
+                    <h2>Your Results Will Appear Here</h2>
+                    <p>Fill in your details to discover your fitness information.</p>
+                </div>
+
+                {% endif %}
+
+            </section>
+
+        </div>
+
+        <footer>
+            FITNESS PRO © 2026 | YOUR HEALTH, YOUR PRIORITY
+        </footer>
+
+    </main>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>
